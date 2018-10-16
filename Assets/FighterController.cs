@@ -130,5 +130,8 @@ public class FighterController : MonoBehaviour {
     }
     public void knockout() {
         anim.SetTrigger("knockout");
+        GameController.instance.scoreEnemy();
+        GameController.instance.OnScreenPoints();
+        GameController.instance.rounds();
     }
 }

@@ -125,5 +125,8 @@ public class EnemyController : MonoBehaviour {
     public void enemyKnockout()
     {
         anim2.SetTrigger("knockout");
+        GameController.instance.scorePlayer();
+        GameController.instance.OnScreenPoints();
+        GameController.instance.rounds();
     }
 }
