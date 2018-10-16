@@ -124,9 +124,27 @@ public class EnemyController : MonoBehaviour {
 
     public void enemyKnockout()
     {
+       
+        enemyHealth = 100;
+        enemyHB.value = 100;
         anim2.SetTrigger("knockout");
         GameController.instance.scorePlayer();
         GameController.instance.OnScreenPoints();
         GameController.instance.rounds();
+        GameController.allowMovement = false;
+
+        if (GameController.playerScore == 2) {
+            GameController.instance.doReset();
+        }
+        else
+        {
+            StartCoroutine(resetCharacters());
+        }
+
+    }
+    IEnumerator resetCharacters()
+    {
+        yield return new WaitForSeconds(4);
+        GameController.allowMovement = true;
     }
 }

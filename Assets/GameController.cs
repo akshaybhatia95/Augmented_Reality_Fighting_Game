@@ -51,6 +51,29 @@ public class GameController : MonoBehaviour {
         enemyScore++;
     }
 
+    public void doReset() {
+        playerScore = 0;
+        enemyScore = 0;
+        points[0].SetActive(false);
+        points[1].SetActive(false);
+        points[2].SetActive(false);
+        points[3].SetActive(false);
+        StartCoroutine(restartGame());
+
+
+    }
+
+    IEnumerator restartGame() {
+        yield return new WaitForSeconds(4.5f);
+        GameController.allowMovement = true;
+        StartCoroutine(restartGameAudio());
+    }
+
+    IEnumerator restartGameAudio()
+    {
+        yield return new WaitForSeconds(2);
+        playAudio(0);
+    }
 
     // Update is called once per frame
     void Update () {

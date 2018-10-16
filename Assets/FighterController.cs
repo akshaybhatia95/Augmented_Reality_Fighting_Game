@@ -17,6 +17,7 @@ public class FighterController : MonoBehaviour {
     public BoxCollider[] c;
     public AudioClip[] audioClip;
     AudioSource audioSource;
+    private Vector3 playerPosition;
 
     void Awake()
     {
@@ -29,6 +30,7 @@ public class FighterController : MonoBehaviour {
         anim = GetComponent<Animator>();
         setAllBoxColliders(false);
         audioSource = GetComponent<AudioSource>();
+        playerPosition = transform.position;
     }
     private void setAllBoxColliders(bool state)
     {
@@ -130,8 +132,26 @@ public class FighterController : MonoBehaviour {
     }
     public void knockout() {
         anim.SetTrigger("knockout");
+        health = 100;
+        playerHB.value = 100;
         GameController.instance.scoreEnemy();
         GameController.instance.OnScreenPoints();
-        GameController.instance.rounds();
+        GameController.instance.rounds(); GameController.allowMovement = false;
+
+        if (GameController.enemyScore == 2)
+        {
+            GameController.instance.doReset();
+
+        }
+        else
+        {
+            StartCoroutine(resetCharacters());
+        }
+
+    }
+    IEnumerator resetCharacters()
+    {
+        yield return new WaitForSeconds(4);
+        GameController.allowMovement = true;
     }
 }
